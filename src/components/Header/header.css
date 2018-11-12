@@ -1,9 +1,11 @@
 header{
-    padding: 20px 0;
-    text-align: center;
+    height: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #7433f1
 }
 
 header h1{
-    color: #fff
+    color: #fff;
 }
