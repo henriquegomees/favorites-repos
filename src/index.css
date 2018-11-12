@@ -1,4 +1,4 @@
-body {
+body, input, html, button {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -9,6 +9,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+button, input[type="submit"]{
+  cursor: pointer;
 }
 
 *{
@@ -24,7 +28,7 @@ code {
 
 .wrapper .flexed-child{
   flex: 1;
-  padding: 25px;
+  padding: 50px;
   min-height: 85vh;
 }
 
