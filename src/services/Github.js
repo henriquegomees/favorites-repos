@@ -26,7 +26,7 @@ const search = async repo => {
             
             newRepos.push(infos)
         }
-        count++
+        return count++
     })
     return newRepos
 }

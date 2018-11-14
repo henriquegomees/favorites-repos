@@ -5,7 +5,7 @@ import ReposService from '../../services/Github'
 import './repos.css'
 
 
-const token = '98cd94897e5612fab83650a411a10084645ae522'
+// const token = '98cd94897e5612fab83650a411a10084645ae522'
 class Repos extends Component {
     constructor(props){
         super()
@@ -27,7 +27,7 @@ class Repos extends Component {
         let repos         = await ReposService.search(repoName)
         
         this.setState({ repos })
-        console.log(repos)
+        // console.log(repos)
     }
 
     render() {

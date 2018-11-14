@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Header from './components/Header'
 
+import Header from './components/Header'
 import Repos from './containers/Repos'
 import Favorites from './containers/Favorites'
 
