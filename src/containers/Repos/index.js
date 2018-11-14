@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 
+import ReposTable from '../../components/ReposTable'
+import ReposService from '../../services/Github'
 import './repos.css'
 
+
+const token = '98cd94897e5612fab83650a411a10084645ae522'
 class Repos extends Component {
     constructor(props){
         super()
         this.state = {
-            reposFound: [],
-            inputRepo : '',
+            repos    : [],
+            repoName : '',
         }
 
         this._handleChange = this._handleChange.bind(this)
@@ -15,12 +19,15 @@ class Repos extends Component {
     }
 
     _handleChange(event){
-        this.setState({ inputRepo: event.target.value })
+        this.setState({ repoName: event.target.value })
     }
 
-    _searchRepo(){
-        let { inputRepo } = this.state
-        alert(inputRepo)
+    async _searchRepo(){
+        let { repoName } = this.state
+        let repos         = await ReposService.search(repoName)
+        
+        this.setState({ repos })
+        console.log(repos)
     }
 
     render() {
@@ -30,31 +37,26 @@ class Repos extends Component {
                     <input 
                         type="text"
                         name="repo"
+                        value={this.state.repoName}
                         onChange={this._handleChange}
                         placeholder="Search for a Github repository"
                     />
-
                     <input type="submit" value="Search" onClick={this._searchRepo}/>
                 </div>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Language</th>
-                            <th>Latest tag</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Body content 1</td>
-                            <td>Body content 2</td>
-                            <td>Body content 3</td>
-                            <td><button className="add-btn">Add</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <ReposTable>
+                    {
+                        this.state.repos.map(repo =>
+                            <tr key={repo.id}>
+                                <td>{repo.name}</td>
+                                <td>{repo.lang}</td>
+                                <td>{repo.tag}</td>
+                                <td><button className="add-btn">Add</button></td>
+                            </tr>
+                        )
+                    }
+                </ReposTable>
+
             </div>
         )
     }

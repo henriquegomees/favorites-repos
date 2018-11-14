@@ -28,7 +28,7 @@ button, input[type="submit"]{
 
 .wrapper .flexed-child{
   flex: 1;
-  padding: 50px;
+  padding: 30px;
   min-height: 85vh;
 }
 

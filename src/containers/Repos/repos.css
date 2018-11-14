@@ -33,7 +33,9 @@ table thead{
 
 table tr th,
 table tr td{
-    width: 30%;
+    width: 25%;
+    font-size: .9em;
+    line-height: 1.6;
     text-align: left;
 }
 
@@ -41,6 +43,12 @@ table tr td{
 table tr th:last-child,
 table tr td:last-child{
     width: 10%;
+    text-align: right;
+}
+
+table tr th:first-child,
+table tr td:first-child{
+    width: 40%;
 }
 
 table button.add-btn{
