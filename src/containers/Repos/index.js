@@ -1,52 +1,43 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import ReposTable from '../../components/ReposTable'
-import ReposService from '../../services/Github'
+import { search } from 'store/actions'
+
+import ReposTable from 'components/ReposTable'
 import './repos.css'
-
-
-// const token = '98cd94897e5612fab83650a411a10084645ae522'
 class Repos extends Component {
     constructor(props){
         super()
         this.state = {
-            repos    : [],
             repoName : '',
         }
-
         this._handleChange = this._handleChange.bind(this)
-        this._searchRepo   = this._searchRepo.bind(this)
     }
 
     _handleChange(event){
         this.setState({ repoName: event.target.value })
     }
 
-    async _searchRepo(){
-        let { repoName } = this.state
-        let repos         = await ReposService.search(repoName)
-        
-        this.setState({ repos })
-        // console.log(repos)
-    }
-
     render() {
+        let { repoName } = this.state
         return (
             <div className="flexed-child">
-                <div className="form">
+                <form className="form" onSubmit={e => {e.preventDefault(); this.props.search(repoName)}}>
                     <input 
+                        required
                         type="text"
                         name="repo"
-                        value={this.state.repoName}
+                        value={repoName}
                         onChange={this._handleChange}
                         placeholder="Search for a Github repository"
                     />
-                    <input type="submit" value="Search" onClick={this._searchRepo}/>
-                </div>
+                    <input type="submit" value="Search" />
+                </form>
 
                 <ReposTable>
-                    {
-                        this.state.repos.map(repo =>
+                    {   
+                        this.props.repos.map(repo =>
                             <tr key={repo.id}>
                                 <td>{repo.name}</td>
                                 <td>{repo.lang}</td>
@@ -62,4 +53,7 @@ class Repos extends Component {
     }
 }
 
-export default Repos
+
+const mapStateToProps = state => ({ repos: state.repos.repos })
+const mapDispatchToProps = dispatch => bindActionCreators({ search }, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(Repos)

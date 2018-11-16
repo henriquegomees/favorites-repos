@@ -1,34 +1,33 @@
 import axios from 'axios'
 
 const search = async repo => {
-    let newRepos = []
-    let count    = 1
-    let tag      = ''
-    
-    let response = await axios.get(`https://api.github.com/search/repositories?q=${repo}`)
+    let repos   = []
+    const limit = 10
 
-    let data = response.data.items
+    const response = await axios.get(`https://api.github.com/search/repositories?q=${repo}`)
+    const data     = response.data.items
 
-    data.map(repo => {
-        if(count <= 10){
-            let infos = {
-                id: repo.id,
-                name: repo.full_name,
-                lang: repo.language,
+    const list = data.slice(0, limit).map(async repo => {
+
+        let tag = await axios.get(repo.tags_url).then(resp => {
+            if(!resp.data[0]){
+                return '-'
             }
+            return resp.data[0].name
+        })
 
-            tag = 'v1.5.7'
-
-            infos = {
-                ...infos,
-                tag
-            }
-            
-            newRepos.push(infos)
+        let infos = {
+            id  : repo.id,
+            name: repo.full_name,
+            lang: repo.language,
+            tag 
         }
-        return count++
+
+        repos.push(infos)
+
     })
-    return newRepos
+    await Promise.all(list)
+    return repos
 }
 
 export default {
