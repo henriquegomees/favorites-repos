@@ -19,6 +19,17 @@ class Repos extends Component {
         this.setState({ repoName: event.target.value })
     }
 
+    _addToFavorites(repo){
+        const repos = []
+        if(localStorage.getItem('favorites')){
+            const favorites = JSON.parse(localStorage.getItem('favorites'))
+            favorites.push(repo)
+            return localStorage.setItem('favorites', JSON.stringify(favorites))
+        }
+        repos.push(repo)
+        localStorage.setItem('favorites', JSON.stringify(repos))
+    }
+
     render() {
         let { repoName } = this.state
         return (
@@ -38,11 +49,12 @@ class Repos extends Component {
                 <ReposTable>
                     {   
                         this.props.repos.map(repo =>
+                            
                             <tr key={repo.id}>
                                 <td>{repo.name}</td>
                                 <td>{repo.lang}</td>
                                 <td>{repo.tag}</td>
-                                <td><button className="add-btn">Add</button></td>
+                                <td><button onClick={() => this._addToFavorites(repo)} className="add-btn">Add</button></td>
                             </tr>
                         )
                     }
