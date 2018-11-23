@@ -1,4 +1,5 @@
 import React from 'react'
+import './repos_table.css'
 
 const ReposTable = props => {
     return (
