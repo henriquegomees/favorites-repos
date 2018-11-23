@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { search } from 'store/actions'
+import { search, addToFavorite } from 'store/actions'
 
 import ReposTable from 'components/ReposTable'
 import './repos.css'
@@ -17,17 +17,6 @@ class Repos extends Component {
 
     _handleChange(event){
         this.setState({ repoName: event.target.value })
-    }
-
-    _addToFavorites(repo){
-        const repos = []
-        if(localStorage.getItem('favorites')){
-            const favorites = JSON.parse(localStorage.getItem('favorites'))
-            favorites.push(repo)
-            return localStorage.setItem('favorites', JSON.stringify(favorites))
-        }
-        repos.push(repo)
-        localStorage.setItem('favorites', JSON.stringify(repos))
     }
 
     render() {
@@ -54,7 +43,7 @@ class Repos extends Component {
                                 <td>{repo.name}</td>
                                 <td>{repo.lang}</td>
                                 <td>{repo.tag}</td>
-                                <td><button onClick={() => this._addToFavorites(repo)} className="add-btn">Add</button></td>
+                                <td><button onClick={() => this.props.addToFavorite(repo)} className="add-btn">Add</button></td>
                             </tr>
                         )
                     }
@@ -66,6 +55,6 @@ class Repos extends Component {
 }
 
 
-const mapStateToProps = state => ({ repos: state.repos.repos })
-const mapDispatchToProps = dispatch => bindActionCreators({ search }, dispatch)
+const mapStateToProps    = state    => ({ repos: state.repos.repos })
+const mapDispatchToProps = dispatch => bindActionCreators({ search, addToFavorite }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Repos)

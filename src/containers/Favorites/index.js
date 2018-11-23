@@ -11,12 +11,6 @@ class Favorites extends Component {
         this.props.fetchFavorites()
     }
 
-    _renderRepos(repos){
-        repos.map(repo => 
-            console.log(repo)
-        )
-    }
-
     render() {
         let { favorites } = this.props
         return (
