@@ -20,10 +20,11 @@ class Repos extends Component {
     }
 
     render() {
-        let { repoName } = this.state
+        let { repoName }  = this.state
+        let { favorites } = this.props
         return (
             <div className="flexed-child">
-                <form className="form" onSubmit={e => {e.preventDefault(); this.props.search(repoName)}}>
+                <form className="form" onSubmit={e => {e.preventDefault(); this.props.search(repoName, favorites)}}>
                     <input 
                         required
                         type="text"
@@ -43,7 +44,7 @@ class Repos extends Component {
                                 <td>{repo.name}</td>
                                 <td>{repo.lang}</td>
                                 <td>{repo.tag}</td>
-                                <td><button onClick={() => this.props.addToFavorite(repo)} className="add-btn">Add</button></td>
+                                <td>{!repo.isFav ? <button onClick={() => this.props.addToFavorite(repo)} className="add-btn">Add</button> : ''}</td>
                             </tr>
                         )
                     }
@@ -55,6 +56,6 @@ class Repos extends Component {
 }
 
 
-const mapStateToProps    = state    => ({ repos: state.repos.repos })
+const mapStateToProps    = state    => ({ repos: state.repos.repos, favorites: state.repos.favorites })
 const mapDispatchToProps = dispatch => bindActionCreators({ search, addToFavorite }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Repos)

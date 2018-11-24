@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const search = async repo => {
+//search() requires the repo name to search and the array of current favorites repos
+const search = async (repo, favorites) => {
     let repos   = []
     const limit = 10
 
@@ -8,19 +9,29 @@ const search = async repo => {
     const data     = response.data.items
 
     const list = data.slice(0, limit).map(async repo => {
+        let isFav = false
+        let tag   = ''
+        let infos = {}
 
-        let tag = await axios.get(repo.tags_url).then(resp => {
-            if(!resp.data[0]){
-                return '-'
-            }
-            return resp.data[0].name
-        })
+        /**
+         * Returns the repo's tag.
+         * If there's no tag to return, it return a hyphen
+         */
+        tag = await axios.get(repo.tags_url).then(resp => !resp.data[0] ? '-' : resp.data[0].name)
 
-        let infos = {
+        /* 
+         * Searching on favorites array if this repo is already favorited
+         * array.find() is the choosed method beacuse it returns the first item wich is true
+         * It does not check the remaining values.
+        */
+        favorites.find(fav => fav.id === repo.id ? isFav = !isFav : isFav)
+
+        infos = {
             id  : repo.id,
             name: repo.full_name,
             lang: repo.language,
-            tag 
+            tag,
+            isFav
         }
 
         repos.push(infos)

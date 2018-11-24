@@ -9,10 +9,10 @@ const fetchFavorites = () => {
     }
 }
 
-const search = repo => (
+const search = (repo, favorites) => (
     async dispatch => {
 
-        const request = await ReposService.search(repo)
+        const request = await ReposService.search(repo, favorites)
         if(request.length < 1){ return alert('No repos found') }
 
         dispatch({
@@ -27,7 +27,8 @@ const addToFavorite = repo => {
     if(localStorage.getItem('favorites')){
         const favorites = JSON.parse(localStorage.getItem('favorites'))
         favorites.push(repo)
-        return localStorage.setItem('favorites', JSON.stringify(favorites))
+        localStorage.setItem('favorites', JSON.stringify(favorites))
+        return dispatch => dispatch(fetchFavorites())
     }
     repos.push(repo)
     localStorage.setItem('favorites', JSON.stringify(repos))
