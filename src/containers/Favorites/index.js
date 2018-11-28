@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { fetchFavorites } from 'store/actions'
+import { fetchFavorites, removeFavorite } from 'store/actions'
 
 import ReposTable from 'components/ReposTable'
 
@@ -21,7 +21,7 @@ class Favorites extends Component {
                             <td>{repo.name}</td>
                             <td>{repo.lang}</td>
                             <td>{repo.tag}</td>
-                            <td><button className="add-btn">Remove</button></td>
+                            <td><button className="add-btn" onClick={i => this.props.removeFavorite(repo)}>Remove</button></td>
                         </tr>
                     )}
                 </ReposTable> 
@@ -31,5 +31,5 @@ class Favorites extends Component {
 }
 
 const mapStateToProps    = state    => ({ favorites: state.repos.favorites })
-const mapDispacthToProps = dispatch => bindActionCreators({ fetchFavorites }, dispatch)
+const mapDispacthToProps = dispatch => bindActionCreators({ fetchFavorites, removeFavorite }, dispatch)
 export default connect(mapStateToProps, mapDispacthToProps)(Favorites)

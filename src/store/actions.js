@@ -35,8 +35,16 @@ const addToFavorite = repo => {
     return dispatch => dispatch(fetchFavorites())
 }
 
+const removeFavorite = repo => {
+    const favorites = JSON.parse(localStorage.getItem('favorites'))
+    favorites.splice(favorites.indexOf(repo), 1)
+    localStorage.setItem('favorites', JSON.stringify(favorites))
+    return dispatch => dispatch(fetchFavorites())
+}
+
 export {
     search,
     addToFavorite,
+    removeFavorite,
     fetchFavorites,
 }
