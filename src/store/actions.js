@@ -4,6 +4,7 @@ import Favorites    from 'services/FavoritesRepos'
 
 const fetchFavorites = () => {
     const favorites = Favorites.get()
+    
     return dispatch => dispatch({
         type: 'FETCH_FAVORITES',
         payload: favorites
@@ -22,7 +23,7 @@ const search = async (repo, favorites) => {
     }
 }
 
-const addToFavorite = async repo => {
+const addToFavorites = async repo => {
     const favorites = await Favorites.get()
     favorites.push(repo)
     Favorites.set(favorites)
@@ -42,7 +43,7 @@ const removeFavorite = async repo => {
 
 export {
     search,
-    addToFavorite,
+    addToFavorites,
     removeFavorite,
     fetchFavorites,
 }

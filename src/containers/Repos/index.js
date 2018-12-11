@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { search, addToFavorite } from 'store/actions'
+import { search, addToFavorites } from 'store/actions'
 
 import ReposTable from 'components/ReposTable'
 import './repos.css'
@@ -44,7 +44,7 @@ class Repos extends Component {
                                 <td>{repo.name}</td>
                                 <td>{repo.lang}</td>
                                 <td>{repo.tag}</td>
-                                <td>{!repo.isFav ? <button onClick={() => this.props.addToFavorite(repo)} className="add-btn">Add</button> : ''}</td>
+                                <td>{!repo.isFav ? <button onClick={() => this.props.addToFavorites(repo)} className="add-btn">Add</button> : ''}</td>
                             </tr>
                         )
                     }
@@ -57,5 +57,5 @@ class Repos extends Component {
 
 
 const mapStateToProps    = state    => ({ repos: state.repos.repos, favorites: state.repos.favorites })
-const mapDispatchToProps = dispatch => bindActionCreators({ search, addToFavorite }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ search, addToFavorites }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Repos)
