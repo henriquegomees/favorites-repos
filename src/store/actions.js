@@ -32,9 +32,11 @@ const addToFavorite = async repo => {
 
 const removeFavorite = async repo => {
     const favorites = await Favorites.get()
-    favorites.splice(favorites.indexOf(repo), 1)
-    await Favorites.set(favorites)
+    const index = favorites.findIndex(fav => fav.id === repo.id)
 
+    favorites.splice(index, 1)
+    Favorites.set(favorites)
+    
     return dispatch => dispatch(fetchFavorites())
 }
 
