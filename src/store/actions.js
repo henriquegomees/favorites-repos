@@ -28,17 +28,26 @@ const addToFavorites = async repo => {
     favorites.push(repo)
     Favorites.set(favorites)
 
-    return dispatch => dispatch(fetchFavorites())
+    console.log(favorites)
+
+    return dispatch => dispatch({
+        type: 'ADD_FAV',
+        favorites,
+        repo
+    })
 }
 
-const removeFavorite = async repo => {
+const removeFavorite = async ({repo, index}) => {
     const favorites = await Favorites.get()
-    const index = favorites.findIndex(fav => fav.id === repo.id)
 
     favorites.splice(index, 1)
     Favorites.set(favorites)
     
-    return dispatch => dispatch(fetchFavorites())
+    return dispatch => dispatch({
+        type: 'REMOVE_FAV',
+        favorites,
+        repo
+    })
 }
 
 export {

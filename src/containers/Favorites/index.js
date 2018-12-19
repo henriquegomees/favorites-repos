@@ -16,12 +16,12 @@ class Favorites extends Component {
         return (
             <div className="flexed-child purple-bg">
                <ReposTable>
-                    {favorites.map(repo => 
+                    {favorites.map((repo, index) => 
                         <tr key={repo.id}>
                             <td>{repo.name}</td>
                             <td>{repo.lang}</td>
                             <td>{repo.tag}</td>
-                            <td><button className="add-btn" onClick={i => this.props.removeFavorite(repo)}>Remove</button></td>
+                            <td><button className="add-btn" onClick={i => this.props.removeFavorite({repo, index})}>Remove</button></td>
                         </tr>
                     )}
                 </ReposTable> 

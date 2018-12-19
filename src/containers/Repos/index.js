@@ -49,12 +49,10 @@ class Repos extends Component {
                         )
                     }
                 </ReposTable>
-
             </div>
         )
     }
 }
-
 
 const mapStateToProps    = state    => ({ repos: state.repos.repos, favorites: state.repos.favorites })
 const mapDispatchToProps = dispatch => bindActionCreators({ search, addToFavorites }, dispatch)
