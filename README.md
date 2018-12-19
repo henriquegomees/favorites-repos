@@ -1,4 +1,4 @@
-#GitHub Favorites Repos
+# GitHub Favorites Repos - Shopify 2018
 
 This is a challange proposed by Shopify for their 2018 Internship program.
 
@@ -7,7 +7,7 @@ You can favorite a repo and manage your's favorites ones.
 
 Yours favorites repos are stored on Local Storage.
 
-##Setting up
+## Setting up
 
 To run this project, you need to clone this repo and then run the following command on your terminal: 
 
