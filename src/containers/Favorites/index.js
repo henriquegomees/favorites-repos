@@ -18,10 +18,12 @@ class Favorites extends Component {
                <ReposTable>
                     {favorites.map((repo, index) => 
                         <tr key={repo.id}>
-                            <td>{repo.name}</td>
+                            <td>
+                                <a href={repo.url} target="_blank" rel="noopener noreferrer">{repo.name}</a>
+                            </td>
                             <td>{repo.lang}</td>
                             <td>{repo.tag}</td>
-                            <td><button className="add-btn" onClick={i => this.props.removeFavorite({repo, index})}>Remove</button></td>
+                            <td><button className="add-btn" onClick={() => this.props.removeFavorite({repo, index})}>Remove</button></td>
                         </tr>
                     )}
                 </ReposTable> 

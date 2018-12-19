@@ -41,7 +41,9 @@ class Repos extends Component {
                         this.props.repos.map(repo =>
                             
                             <tr key={repo.id}>
-                                <td>{repo.name}</td>
+                                <td>
+                                    <a href={repo.url} target="_blank" rel="noopener noreferrer">{repo.name}</a>
+                                </td>
                                 <td>{repo.lang}</td>
                                 <td>{repo.tag}</td>
                                 <td>{!repo.isFav ? <button onClick={() => this.props.addToFavorites(repo)} className="add-btn">Add</button> : ''}</td>

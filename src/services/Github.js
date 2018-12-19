@@ -30,6 +30,7 @@ const search = async (repo, favorites) => {
             id  : repo.id,
             name: repo.full_name,
             lang: repo.language,
+            url : repo.html_url, 
             tag,
             isFav
         }
