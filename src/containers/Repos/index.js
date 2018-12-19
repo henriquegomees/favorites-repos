@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux'
 import { search, addToFavorites } from 'store/actions'
 
 import ReposTable from 'components/ReposTable'
+import TableRow from 'components/ReposTable/TableRow'
+
 import './repos.css'
 class Repos extends Component {
     constructor(props){
@@ -21,7 +23,7 @@ class Repos extends Component {
 
     render() {
         let { repoName }  = this.state
-        let { favorites } = this.props
+        let { favorites, repos, addToFavorites } = this.props
         return (
             <div className="flexed-child">
                 <form className="form" onSubmit={e => {e.preventDefault(); this.props.search(repoName, favorites)}}>
@@ -38,16 +40,17 @@ class Repos extends Component {
 
                 <ReposTable>
                     {   
-                        this.props.repos.map(repo =>
-                            
-                            <tr key={repo.id}>
-                                <td>
-                                    <a href={repo.url} target="_blank" rel="noopener noreferrer">{repo.name}</a>
-                                </td>
-                                <td>{repo.lang}</td>
-                                <td>{repo.tag}</td>
-                                <td>{!repo.isFav ? <button onClick={() => this.props.addToFavorites(repo)} className="add-btn">Add</button> : ''}</td>
-                            </tr>
+                        repos.map(repo =>
+                            <TableRow 
+                                key={repo.id}
+                                url={repo.url}
+                                name={repo.name}
+                                lang={repo.lang}
+                                tag={repo.tag}
+                                buttonLabel="Add"
+                                isFav={repo.isFav}
+                                onClick={() => addToFavorites(repo)}
+                            />
                         )
                     }
                 </ReposTable>

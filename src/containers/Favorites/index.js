@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { fetchFavorites, removeFavorite } from 'store/actions'
 
 import ReposTable from 'components/ReposTable'
+import TableRow from 'components/ReposTable/TableRow'
 
 class Favorites extends Component {
     componentWillMount(){
@@ -12,19 +13,20 @@ class Favorites extends Component {
     }
 
     render() {
-        let { favorites } = this.props
+        let { favorites, removeFavorite } = this.props
         return (
             <div className="flexed-child purple-bg">
                <ReposTable>
                     {favorites.map((repo, index) => 
-                        <tr key={repo.id}>
-                            <td>
-                                <a href={repo.url} target="_blank" rel="noopener noreferrer">{repo.name}</a>
-                            </td>
-                            <td>{repo.lang}</td>
-                            <td>{repo.tag}</td>
-                            <td><button className="add-btn" onClick={() => this.props.removeFavorite({repo, index})}>Remove</button></td>
-                        </tr>
+                        <TableRow 
+                            key={repo.id}
+                            url={repo.url}
+                            name={repo.name}
+                            lang={repo.lang}
+                            tag={repo.tag}
+                            buttonLabel="Remove"
+                            onClick={() => removeFavorite({repo, index})}
+                        />
                     )}
                 </ReposTable> 
             </div>
