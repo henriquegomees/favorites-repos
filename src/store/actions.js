@@ -28,8 +28,6 @@ const addToFavorites = async repo => {
     favorites.push(repo)
     Favorites.set(favorites)
 
-    console.log(favorites)
-
     return dispatch => dispatch({
         type: 'ADD_FAV',
         favorites,
