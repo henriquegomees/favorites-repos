@@ -1,4 +1,5 @@
 {
+  "homepage": "https://henriquegomees.github.io/favorites-repos/",
   "name": "github-repos",
   "version": "0.1.0",
   "private": true,
@@ -13,6 +14,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
+    "deploy": "yarn build && gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -28,6 +30,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "gh-pages": "^2.0.1",
     "redux-promise": "^0.6.0"
   }
 }
