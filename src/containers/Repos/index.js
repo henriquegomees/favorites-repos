@@ -13,6 +13,7 @@ class Repos extends Component {
         super()
         this.state = {
             repoName : '',
+            btnLabel: "Search"
         }
         this._handleChange = this._handleChange.bind(this)
     }
@@ -21,12 +22,21 @@ class Repos extends Component {
         this.setState({ repoName: event.target.value })
     }
 
-    render() {
+    async _handleSubmit(e) {
+        e.preventDefault()
+        let { favorites } = this.props
         let { repoName }  = this.state
+        this.setState({ btnLabel: 'Searching...' })
+        await this.props.search(repoName, favorites)
+        this.setState({ btnLabel: 'Search' })
+    }
+
+    render() {
+        let { repoName, btnLabel }  = this.state
         let { favorites, repos, addToFavorites } = this.props
         return (
             <div className="flexed-child">
-                <form className="form" onSubmit={e => {e.preventDefault(); this.props.search(repoName, favorites)}}>
+                <form className="form" onSubmit={ this._handleSubmit.bind(this) }>
                     <input 
                         required
                         type="text"
@@ -35,7 +45,7 @@ class Repos extends Component {
                         onChange={this._handleChange}
                         placeholder="Search for a Github repository"
                     />
-                    <input type="submit" value="Search" />
+                    <input type="submit" value={btnLabel} disabled={btnLabel === 'Searching...' ? true : false} />
                 </form>
 
                 <ReposTable>

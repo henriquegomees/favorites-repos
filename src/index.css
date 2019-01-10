@@ -35,3 +35,8 @@ button, input[type="submit"]{
 .wrapper .flexed-child.purple-bg{
   background-color: #f3ecfe
 }
+
+input[type=submit][disabled]{
+  cursor: not-allowed !important;
+  background-color:#aaa !important;
+}
